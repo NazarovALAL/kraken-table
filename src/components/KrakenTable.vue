@@ -5,7 +5,9 @@
         Kraken Pairs
       </b-navbar-brand>
     </b-navbar>
-    <b-table striped hover :items="pairsArr" :fields="fields" :busy="isBusy">
+    <b-table id="table-transition" primary-key="Pair"
+            :tbody-transition-props="transProps" striped hover :items="pairsArr"
+            :fields="fields" :busy="isBusy">
       <template v-slot:cell(pair)="data">
         <span>{{ data.item.Pair | splitPair }}</span>
       </template>
@@ -25,6 +27,9 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      transProps: {
+        name: 'flip-list'
+      },
       fields: ['Pair', { key: 'Bid', sortable: true }, { key: 'Ask', sortable: true }],
       isBusy: true
     }
@@ -59,5 +64,8 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+#table-transition
+  .flip-list-move
+    transition: transform 1s;
 </style>
